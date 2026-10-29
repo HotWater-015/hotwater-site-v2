@@ -1,0 +1,36 @@
+{{ define "main" }}
+{{ $p := site.Data.portfolio }}{{ $a := site.Data.achievements }}
+<div id="about-v4" class="av4">
+<section class="av-sequence" aria-labelledby="av-title"><div class="av-stage">
+<div class="av-grid" aria-hidden="true"></div><div class="av-halo" aria-hidden="true"></div>
+<div class="av-topline av-mono"><span>HOTWATER / PERSONAL FIELD NOTES</span><span>01 — QUESTION THE ASSUMPTION</span></div>
+<div class="av-hero-copy"><p class="av-kicker">CTF player · security researcher</p><h1 id="av-title"><span>TRUST IS A</span> <span>VULNERABILITY.</span></h1></div>
+<div id="about-artifact" class="av-artifact" aria-hidden="true">{{ partial "about-artifact.html" . }}<span class="av-object-label av-mono">FIG. 01 / FRACTURED TRUST</span></div>
+<div class="av-hero-note"><span class="av-mini-cross" aria-hidden="true">+</span><p>I'm the person behind <strong>Hotwater.</strong><br>Exploring broken assumptions.<br>Documenting what lies underneath.</p></div>
+<div class="av-bridge"><span class="av-kicker">Behind the alias</span><p>Curiosity.<br>Then persistence.</p><a href="#about-me" class="av-link" data-magnetic>Meet hotwater {{ partial "components/arrow.html" "up-right" }}</a></div>
+<div class="av-floating av-mono" aria-hidden="true"><i></i>TRUST BOUNDARY<br><span>STATUS / UNDER EXAMINATION</span></div>
+<a href="#about-me" class="av-scroll av-mono">SCROLL TO INVESTIGATE <span>{{ partial "components/arrow.html" "down" }}</span></a><span class="av-index av-mono" aria-hidden="true">01 / 04</span>
+</div></section>
+<section id="about-me" class="av-bio av-section"><div><span class="av-kicker">01 / About me</span><h2>Behind <br>Hotwater<span>.</span></h2><span class="av-mono av-small">CURIOUS BY DEFAULT</span></div><div><p class="av-manifesto" data-word-reveal>{{ range split $p.biography.introduction " " }}<span{{ if in $p.biography.highlights . }} data-accent="true"{{ end }}>{{ . }}</span> {{ end }}</p><div class="av-team-group" aria-label="CTF teams">{{ range $i, $team := $p.biography.teams }}{{ if $i }}<span class="av-team-separator" aria-hidden="true">·</span>{{ end }}<span class="av-team{{ if .current }} av-team-current{{ end }}"><span>{{ .name }}</span>{{ if .current }}<small class="av-mono">CURRENT TEAM</small>{{ end }}</span>{{ end }}</div></div></section>
+<section id="positions" class="av-positions av-section"><header><span class="av-kicker">02 / Positions secured</span><h2>Earned in<br>the competition.</h2><p>Every position has a story. These are the results.</p></header>
+<div class="av-podium">
+{{ range slice (dict "key" "second" "rank" "02" "title" "2nd place" "value" $a.placements.second) (dict "key" "first" "rank" "01" "title" "1st place" "value" $a.placements.first) (dict "key" "third" "rank" "03" "title" "3rd place" "value" $a.placements.third) }}
+<div class="av-podium-place av-{{ .key }}" aria-label="{{ .title }}: {{ .value }} CTFs"><div class="av-podium-number" aria-hidden="true" data-count="{{ .value }}">{{ printf "%02d" (int .value) }}</div><span class="av-mono">CTFs / {{ .title }}</span><div class="av-plinth" aria-hidden="true"><span>{{ .rank }}</span><div class="av-victory">{{ if eq .key "first" }}<svg viewBox="0 0 160 160"><path d="m80 15 52 30v60l-52 30-52-30V45Z M28 45l52 30 52-30M80 75v60M80 15v60M28 105l52-30 52 30"/></svg>{{ end }}</div></div></div>{{ end }}
+</div></section>
+<section id="achievements" class="av-awards-sequence av-victory-gallery" aria-labelledby="av-awards-title" style="--event-count:{{ len $a.records }}"><div class="av-awards-stage">
+<header><div><span class="av-kicker">03 / CTF victories</span><h2 id="av-awards-title">THE MOMENTS<br>THAT MATTER.</h2></div><p>{{ len $a.records }} competitions.<br> A few moments worth keeping.</p></header>
+<div class="av-awards-window">
+{{ range $i, $event := $a.records }}
+<article class="av-award av-event-story" id="{{ .id }}" data-award="{{ $i }}" data-event-id="{{ .id }}">
+<div class="av-event-editorial"><span class="av-event-index" aria-hidden="true">{{ printf "%02d" (add $i 1) }}<small> / {{ printf "%02d" (len $a.records) }}</small></span><div class="av-event-title"><span class="av-result av-result-{{ .position }}">{{ if eq (int .position) 1 }}FIRST PLACE{{ else if eq (int .position) 3 }}THIRD PLACE{{ else }}SECOND PLACE{{ end }}</span><h3>{{ .name }}</h3><p class="av-event-date av-mono"><time datetime="{{ .start }}">{{ if ne .start .end }}{{ (time.AsTime .start).Format "2" }}–{{ end }}{{ (time.AsTime .end).Format "2 January 2006" }}</time></p></div><span class="av-event-category av-mono">CAPTURE THE FLAG / 2026</span></div>
+<figure class="av-event-figure {{ if eq .id "cryovault-ctf-2026" }}av-portrait{{ end }}">
+{{ if and .image (in (slice "user-provided" "user-confirmed") .image_status) }}{{ $imagePath := strings.TrimPrefix "/" .image }}{{ $config := imageConfig (printf "static/%s" $imagePath) }}{{ $stem := replaceRE "\\.[^.]+$" "" .image }}
+<a class="av-photo-original" href="{{ .image }}" target="_blank" rel="noopener" data-cursor="VIEW" aria-label="View full photograph: {{ .name }} (opens a new tab)"><picture><source type="image/webp" srcset="{{ $stem }}-640.webp 640w, {{ $stem }}-1280.webp {{ if lt $config.Width 1280 }}{{ $config.Width }}{{ else }}1280{{ end }}w" sizes="(max-width:900px) 88vw, 54vw"><img src="{{ .image }}" width="{{ $config.Width }}" height="{{ $config.Height }}" style="aspect-ratio:{{ $config.Width }} / {{ $config.Height }}" alt="{{ .image_alt }}" loading="lazy" decoding="async"></picture></a><figcaption><span>EVENT PHOTOGRAPH</span><span>{{ .name }}</span></figcaption>
+{{ else }}<div class="av-procedural av-art-{{ $i }}" aria-label="Original abstract artwork for {{ .name }}">{{ partial "about-event-art.html" (dict "Index" $i "Name" .name) }}<span class="av-art-name">{{ .name }}</span></div><figcaption><span>ORIGINAL ABSTRACT ARTWORK</span><span>HOTWATER / {{ printf "%02d" (add $i 1) }}</span></figcaption>{{ end }}
+</figure></article>{{ end }}
+</div>
+<nav class="av-award-rail" aria-label="Competition timeline">{{ range $i, $event := $a.records }}<a href="#{{ .id }}" data-award-go="{{ $i }}" aria-label="{{ .name }}"><span>{{ printf "%02d" (add $i 1) }}</span><span>{{ (time.AsTime .start).Format "02 Jan" }}</span></a>{{ end }}</nav>
+</div></section>
+<footer class="av-signoff av-closing-v5" id="about-closing"><div class="av-close-top"><span class="av-kicker">04 / Keep questioning</span><a href="#av-title" class="av-link" data-magnetic>Back to top {{ partial "components/arrow.html" "up" }}</a></div><div class="av-close-main"><span class="av-signature"><span class="av-brand-emblem" aria-hidden="true">{{ partial "components/brand-symbol.html" . }}</span>hotwater<span>.</span></span><p>Question the assumption.<br>Trust is a vulnerability.</p></div><div class="av-close-bottom"><span>© {{ now.Year }} Hotwater</span><nav aria-label="Footer navigation"><a href="/">Home</a><a href="/writeups/">Writeups</a><a href="/ctfs/">CTFs</a></nav><span>CURIOUS BY DEFAULT.</span></div></footer>
+</div>
+{{ end }}

@@ -1,0 +1,6 @@
+{{ $p := .Page }}{{ $m := partialCached "archive-meta.html" $p $p.File.Path }}
+<article class="card writeup-card" data-cat="{{ $m.category }}" data-event="{{ $m.event }}" data-date="{{ $p.Date.Unix }}" data-title="{{ $p.Title }}" data-difficulty="{{ $p.Params.difficulty }}" data-tags="{{ $m.eventLabel }} {{ $m.categoryLabel }} {{ delimit ($p.Params.tags | default slice) " " }} {{ $p.Description }}">
+<a href="{{ $p.RelPermalink }}" class="card-home-body" data-cursor="READ">
+<div class="card-art" aria-hidden="true">{{ partial "components/ctf-visual.html" $m.category }}<span class="card-art-label">{{ $m.categoryLabel }}</span><span class="card-arrow">{{ partial "components/arrow.html" "up-right" }}</span></div>
+<div class="card-content"><div class="card-meta"><span>{{ $m.eventLabel }}</span><span>{{ $m.categoryLabel }}</span></div><h3>{{ $p.Title }}</h3>{{ with $p.Description }}<p class="clamp-3">{{ . }}</p>{{ end }}<div class="card-meta card-bottom"><span>{{ $p.Date.Format "02 Jan 2006" }} · {{ $p.ReadingTime }} min read</span>{{ with $p.Params.difficulty }}<span>{{ . }}</span>{{ end }}{{ if $p.Params.teammate }}<span>Teammate writeup</span>{{ end }}<span class="read-label">Read writeup <span aria-hidden="true">{{ partial "components/arrow.html" "up-right" }}</span></span></div></div>
+</a></article>

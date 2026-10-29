@@ -1,0 +1,22 @@
+node_modules/
+public/
+.dev-public/
+resources/
+.hugo_build.lock
+.wrangler/
+__pycache__/
+*.pyc
+reports/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+deployment-reference/
+/static/js/motion-system.js
+/static/js/chunks/
+/static/js/katex/
+/static/css/katex/
+
+# Unconfirmed event photograph: local review only
+/review_photos/

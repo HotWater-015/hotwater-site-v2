@@ -1,0 +1,2 @@
+{{ $scheme := (urls.Parse .Destination).Scheme | lower }}
+{{ if or (eq $scheme "") (in (slice "https" "http") $scheme) }}<figure class="md-image"><a href="{{ .Destination }}"><img src="{{ .Destination }}" alt="{{ .PlainText }}" loading="lazy" decoding="async"></a>{{ with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}</figure>{{ else }}<span>{{ .PlainText }}</span>{{ end }}

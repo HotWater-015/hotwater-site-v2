@@ -1,0 +1,19 @@
+# Public facts: existing About content and owner-supplied personal introduction.
+identity:
+  name: hotwater
+  role: CTF player · security researcher
+  headline: TRUST IS A VULNERABILITY.
+  introduction: The person behind the Hotwater writeup archive. Disassemblers, packet captures, half-broken binaries — and the curiosity to keep going.
+biography:
+  statement: The flag is just the receipt. The writeup is the actual work.
+  detail: This is my lab notebook — the challenges I solve, the dead ends I hit, and the tricks I want to remember next time.
+  practice: Mostly binary exploitation and cryptography, with detours into network forensics and mobile when a challenge looks weird enough to be interesting.
+  introduction: "I'm Rathnadeepan, a third-year CSE (Cybersecurity) student at Rajalakshmi Engineering College. An active CTF player driven by curiosity, broken assumptions, and understanding how systems really work."
+  highlights: ["Rathnadeepan,", "(Cybersecurity)", "curiosity,"]
+  teams:
+    - name: fu11b00t
+      current: false
+    - name: Cr4zy_u5
+      current: false
+    - name: team_xz
+      current: true

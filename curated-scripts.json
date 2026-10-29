@@ -1,0 +1,316 @@
+{
+  "version": 1,
+  "challenges": [
+    {
+      "writeup": "writeups/cryovault/rime.md",
+      "directory": "Projects/ctf/isfcr-finals/pwn/rime",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3 standard library. Run brute_canary.py before solve.py to regenerate canary.txt; recorded default canary may be stale. Historical service availability is unverified."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/isfcr-finals/pwn/rime/solve.py",
+          "role": "main-solver",
+          "label": "Final ret2flag exploit; run after canary recovery",
+          "language": "python",
+          "sha256": "aeae38a7aa0584f63cfadbbaeecb3d8a4d06aaca0ddb9c81038b3924bd419e01",
+          "evidence": "Writeup Final exploit uses BUF=104, return offset=120 and WIN=0x4005a0. Source matches and reads canary.txt.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        },
+        {
+          "path": "Projects/ctf/isfcr-finals/pwn/rime/brute_canary.py",
+          "role": "required-helper",
+          "label": "Stage 1: recover canary.txt before running solve.py",
+          "language": "python",
+          "sha256": "7b2f6802c5bbd84fa4e5b35e826e812b7105361ebf2e53fd5ff4a6c020dcf74b",
+          "evidence": "Writeup identifies bytewise framed oracle; source sends A*104 plus candidate bytes and persists canary.txt. Scanner and ELF dumper are discovery tools not needed for this final chain.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/cryovault/floe.md",
+      "directory": "Projects/ctf/isfcr-finals/pwn/floe",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3 standard library. Run brute_canary.py before exploit_final.py. No canary/evidence files are published. Historical remote service is unverified."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/isfcr-finals/pwn/floe/exploit_final.py",
+          "role": "main-solver",
+          "label": "Final floe.rec ROP exploit; run after canary recovery",
+          "language": "python",
+          "sha256": "c6a1d3cf62a704ef8e5299a841ff8c9124f2c2389156f9bb269efd1827058e74",
+          "evidence": "Final ROP chain section specifies pop rdi=0x400570, pathname=0x401770, reader=0x400760 and BUF=88. Source matches all four and reads canary.txt.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        },
+        {
+          "path": "Projects/ctf/isfcr-finals/pwn/floe/brute_canary.py",
+          "role": "required-helper",
+          "label": "Stage 1: recover canary.txt",
+          "language": "python",
+          "sha256": "d49c6bf3b2daa26531558040a247a4400a577d9048821551e030e18adcfa270c",
+          "evidence": "Writeup explicitly prescribes brute_canary.py when the canary rotates. Source uses framed oracle, BUF=88, port=27813 and writes canary.txt. Other 37 Python candidates are unnecessary for the documented final chain.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/cryovault/neve.md",
+      "directory": "Projects/ctf/isfcr-finals/pwn/3",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3 standard library. Run brute_canary.py before exploit_neve.py, in the same directory. Historical remote service is unverified."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/isfcr-finals/pwn/3/exploit_neve.py",
+          "role": "main-solver",
+          "label": "Final stack leak and file-read exploit",
+          "language": "python",
+          "sha256": "db44d9a447f517ea86e9586dd16b171eac7716ca411c31a93d48dcfa3765fb01",
+          "evidence": "Writeup names final exploit. Source reproduces length framing, stack-to-buffer offset, flag.txt placement, 0x400570 pop rdi and 0x400670 file reader; no local ELF dependency.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        },
+        {
+          "path": "Projects/ctf/isfcr-finals/pwn/3/brute_canary.py",
+          "role": "required-helper",
+          "label": "Stage 1: recover canary.txt",
+          "language": "python",
+          "sha256": "fdf325dbf2f1681548d3f782ce5092ad3e9c23acfbec397c6d5bae4c2223bb6d",
+          "evidence": "Source uses BUF=88, neve prompt and framed crash oracle, writing canary.txt consumed by exploit_neve.py. Scanner/dump scripts are unnecessary after documented gadgets are known.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/xploit/common-modulus.md",
+      "directory": "Projects/ctf/xploit/xploit-5/crypto/common-modulus",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3, PyCryptodome, SymPy. Dependencies are documented, not installed or executed by the site. Original writeup does not report a recovered flag."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/xploit/xploit-5/crypto/common-modulus/solve.py",
+          "role": "main-solver",
+          "label": "RSA common-modulus plaintext recovery",
+          "language": "python",
+          "sha256": "d3b9839881a120e7bedef16e4262282580039193b9a8117e2912ec9301ef611f",
+          "evidence": "Source implements extended_gcd(65537,65539), modular inverses for negative coefficients and ciphertext combination exactly as Analysis describes; self-contained public challenge constants.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/xploit/related-messages.md",
+      "directory": "Projects/ctf/xploit/xploit/crypto/related",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "SageMath and the original public.txt challenge input, obtained separately. Source only is published; original writeup does not report a recovered flag."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/xploit/xploit/crypto/related/solve.sage",
+          "role": "main-solver",
+          "label": "Franklin\u2013Reiter polynomial GCD recovery",
+          "language": "sage",
+          "sha256": "3a6977d6745bbfc7f24c1de257d8bcbbb1947e641e1215e67746bcd43123f4c9",
+          "evidence": "Writeup explicitly presents Sage polynomial-ring attack. Source constructs both polynomials over Zmod(N), computes a monic GCD and decodes the degree-one root. sol.py is an alternative, not a dependency.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/sun/ground.md",
+      "directory": "Projects/ctf/sun/web/ground",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3 standard library. Save the response described in the writeup to response.html, then run extract_pdf.py. Captured response/evidence is not published."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/sun/web/ground/extract_pdf.py",
+          "role": "required-helper",
+          "label": "Decode the PDF from the captured HTTP response",
+          "language": "python",
+          "sha256": "23604b4996c7f75c79ae02961e1078288a83f96071fb143212898fe185dad2e0",
+          "evidence": "Writeup Extraction contains the same html.unescape, data-field regex, base64.b64decode and report.pdf write. This is an extraction stage, not the main SSRF exploit.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/isfcr/parallax.md",
+      "directory": "Projects/ctf/isfcr/crypto/paralax",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Run solve.py, then recover.py with model (1).py alongside them. Requires original observations (1).json; no evidence/data files are published. Python packages: fpylll, cysignals, sympy, z3-solver, cryptography. recover.py uses exec on a prefix of the trusted local solve.py when manually run; the website never executes either file."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/isfcr/crypto/paralax/recover.py",
+          "role": "main-solver",
+          "label": "Stage 2: atom and limb recovery, authenticated decoding",
+          "language": "python",
+          "sha256": "d9d86f395b19b8a19dc1cfabf33d90dbeffbaaabc1cbe9bbb0061943b0f531b3",
+          "evidence": "Writeup Reproduce section names recover.py. Source solves mask system, constructs quadratic cancellation and CVP lattices, verifies with polynomial and open_seal. It loads model (1).py and the pre-z3 prefix of solve.py.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        },
+        {
+          "path": "Projects/ctf/isfcr/crypto/paralax/solve.py",
+          "role": "required-helper",
+          "label": "Stage 1: recover mask columns into cols.json",
+          "language": "python",
+          "sha256": "8eca8cc1c9ebdfb8c0753ec25902d4f3b130d7499205c0b1ea7cfb44f155185b",
+          "evidence": "Writeup specifies first run solve.py. Source finds short sample relations with LLL, enumerates binary columns with z3 and writes cols.json required by recover.py.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        },
+        {
+          "path": "Projects/ctf/isfcr/crypto/paralax/model (1).py",
+          "role": "required-helper",
+          "label": "Polynomial evaluation and authenticated message decoding",
+          "language": "python",
+          "sha256": "be4ae99f467520be772379c6a80cba9471864816b6ff2feec67c27664bbb9431",
+          "evidence": "recover.py dynamically imports this exact filename and calls polynomial and open_seal. Source contains only documented polynomial evaluation and SHA256/ChaCha20Poly1305 decoding. Must retain original filename.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys; challenge constants are documented public instance data"
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/xploit/matrix-over-mind.md",
+      "directory": "Projects/ctf/xploit/xploit/crypto/matrix-over-mind",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "SageMath plus original output.txt. The original writeup does not report a recovered flag; this source has not been executed or independently verified."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/xploit/xploit/crypto/matrix-over-mind/solve.sage",
+          "sha256": "203f1cfed9a431b4714e54716ff045408da3bcd38417b7a22b2b32be988eaeab",
+          "language": "sage",
+          "role": "main-solver",
+          "label": "Cayley\u2013Hamilton matrix recovery",
+          "evidence": "Source exactly follows Analysis: power_mod(x,e,x^2-T*x+D), subtract scalar identity component, divide by A[1], concatenate recovered matrix entries. No local code dependencies.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys. Numeric key material is public challenge input or a computed recovery variable."
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/xploit/smooth-dh.md",
+      "directory": "Projects/ctf/xploit/xploit-5/crypto/smooth-dh",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3 and SymPy. Prints and checks the recovered exponent only. Original writeup does not report flag recovery; no solver execution was performed."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/xploit/xploit-5/crypto/smooth-dh/solve.py",
+          "sha256": "97830d98cc52d5f17cd1bb964d5c19dacc11985e4d9fb0ba4cf45fa94838bc57",
+          "language": "python",
+          "role": "main-solver",
+          "label": "Pohlig\u2013Hellman exponent recovery",
+          "evidence": "Source uses sympy discrete_log(p,A,g) with the same published p=1870283325551092163712001 and g=2048; checks pow(g,d,p)==A. No decryption stage is claimed in source.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys. Numeric key material is public challenge input or a computed recovery variable."
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/xploit/linear-guess.md",
+      "directory": "Projects/ctf/xploit/xploit-4/crypto/linear",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3, PyCryptodome and original flag.enc. Public outputs are embedded. Noninvertible difference takes an incomplete error path in the original source; the source is preserved, not repaired. No solver execution performed."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/xploit/xploit-4/crypto/linear/solve.py",
+          "sha256": "e036cf2f073f301f11baea0ced94403005a6ea3952c65280a4a6b31cdff6fe51",
+          "language": "python",
+          "role": "main-solver",
+          "label": "LCG parameter recovery and XOR decoding",
+          "evidence": "Source uses three consecutive outputs to invert diff0 modulo 2^32, recovers a,c, emits little-endian future states, XORs flag.enc exactly as Decryption describes.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys. Numeric key material is public challenge input or a computed recovery variable."
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/xploit/small-private.md",
+      "directory": "Projects/ctf/xploit/xploit/crypto/small-private",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3, PyCryptodome and owiener. Source embeds public N,e,c. Failure to recover d prints Failed but still reaches pow in original code. Original writeup reports no flag; source unexecuted."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/xploit/xploit/crypto/small-private/solve.py",
+          "sha256": "d4faad5c1c26d3b9754031a29aa912bcc2807364c21c0817ef2dffd762c36510",
+          "language": "python",
+          "role": "main-solver",
+          "label": "Wiener small-private-exponent attack",
+          "evidence": "Analysis explicitly excerpts owiener.attack(e,n), pow(c,d,n) and long_to_bytes matching this source. The Sage file repeats the attack and is an alternative, not a dependency.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys. Numeric key material is public challenge input or a computed recovery variable."
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/xploit/truncated-oracle.md",
+      "directory": "Projects/ctf/xploit/xploit/crypto/truncated-oracle",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3, fpylll, cysignals and original output.txt. Original writeup reports no recovered flag. This is the documented algorithm; mathematical correctness and execution have not been independently verified."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/xploit/xploit/crypto/truncated-oracle/solve.py",
+          "sha256": "fe0ef5cf802cf9f8e18c3b301d0fda471057e289a5847c64fda0791f99a79778",
+          "language": "python",
+          "role": "main-solver",
+          "label": "Documented truncated-LCG lattice recovery",
+          "evidence": "Source parses output.txt, constructs the LCG coefficient lattice, calls LLL.reduction and CVP.closest_vector, reconstructs low-byte keystream and XORs ciphertext, matching Lattice section.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys. Numeric key material is public challenge input or a computed recovery variable."
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/xploit/bgp-from-hell.md",
+      "directory": "Projects/ctf/xploit/xploit/networking/BGP/extracted",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3 standard library and original ixp_border_bgp_stream.pcap in the working directory. The writeup reports only partially garbled recovery. This is an analysis stage, not a verified final solver."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/xploit/xploit/networking/BGP/extracted/solve.py",
+          "sha256": "fd717a1a40a87ecc41050c4d5b65775897f54489d3f210b1ede0c20b6094f48a",
+          "language": "python",
+          "role": "required-helper",
+          "label": "BGP community hash-chain reconstruction",
+          "evidence": "Source parses pcap packet records, selects the documented OPEN and eight UPDATEs, handles extended attribute lengths, hashes non-community attributes and XORs type-8 bytes exactly as Analysis describes.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys. Numeric key material is public challenge input or a computed recovery variable."
+        }
+      ]
+    },
+    {
+      "writeup": "writeups/xploit/tcp-schr-dinger.md",
+      "directory": "Projects/ctf/xploit/xploit-2/networking/tcp-scrodinger",
+      "review": "Static source and writeup comparison by implementation agent; not owner approval",
+      "requirements": [
+        "Python 3, separately installed tshark and original tcp_schrodinger_mirror.pcap. ZIP extraction remains the manual step described in the article. No subprocesses were launched during analysis."
+      ],
+      "scripts": [
+        {
+          "path": "Projects/ctf/xploit/xploit-2/networking/tcp-scrodinger/solve.py",
+          "sha256": "bc9b77b787e2e16205b863c16fb0e289f5795ae94738c750f168025aafbf5bcf",
+          "language": "python",
+          "role": "required-helper",
+          "label": "PAWS filtering and stream reconstruction",
+          "evidence": "Source runs the exact tshark field extraction in Analysis, starts TS.Recent at 200000, rejects old timestamps and concatenates accepted payloads sorted by seq. It prints stream bytes and hex; it does not perform final ZIP extraction.",
+          "secret_review": "Manually inspected: no credentials, tokens or private keys. Numeric key material is public challenge input or a computed recovery variable."
+        }
+      ]
+    }
+  ]
+}

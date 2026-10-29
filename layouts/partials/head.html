@@ -1,0 +1,56 @@
+{{- $title := cond (ne .Title "") (printf "%s | %s" .Title .Site.Title)
+.Site.Title -}}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>{{ $title }}</title>
+
+{{ partial "meta.html" . }}
+
+<link rel="icon" type="image/svg+xml" href="/images/brand/fractured-hw.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/fractured/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/fractured/apple-touch-180.png">
+<link rel="preload" href="/css/fonts/GeneralSans-Medium.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- Web App Manifest -->
+{{ with .Site.GetPage "/" }}
+  {{ range .OutputFormats }}
+    {{ if eq .Name "webappmanifest" }}
+      <link rel="manifest" href="{{ .Permalink }}" />
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<link rel="stylesheet" href="{{ "css/main.css" | relURL }}"> 
+
+{{ if .Site.Params.icons.useFontAwesome }}
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+  >
+{{ end }}
+
+{{ if .Site.Params.icons.useDevicon }}
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/devicon.min.css"
+  >
+{{ end }}
+
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/motion.css">
+<link rel="stylesheet" href="/css/cinematic.css">
+<link rel="stylesheet" href="/css/premium-ui.css">
+{{ if or .IsHome (eq .Layout "ctfs") }}<link rel="stylesheet" href="/css/ctf-events.css">{{ end }}
+{{ if eq .Layout "about" }}<link rel="stylesheet" href="{{ "css/about-v4.css" | relURL }}">{{ end }}
+<link rel="stylesheet" href="/css/mobile-refinement.css">
+<script type="module" src="/js/motion-loader.js"></script>
+<script src="/js/enhancements.js" defer></script>
+{{ if and (eq .Section "writeups") .IsPage }}
+<link rel="stylesheet" href="/css/katex/katex.min.css">
+<script defer src="/js/katex/katex.min.js"></script>
+<script defer src="/js/katex/auto-render.min.js" onload="renderMathInElement(document.querySelector('.markdown-body'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false,trust:false})"></script>
+{{ end }}
+{{ if not .Site.Params.localDevelopment }}{{ partial "analytics.html" . }}{{ end }}

@@ -1,0 +1,53 @@
+/* Competition showcase. All selectors are scoped to the existing event section. */
+.events-section{position:relative;isolation:isolate}
+.events-section::before{content:"";position:absolute;z-index:-1;pointer-events:none;right:0;top:-48px;width:68%;height:230px;background:linear-gradient(139deg,transparent 35%,#ef44441c 35.1%,transparent 35.3%),linear-gradient(139deg,transparent 62%,#ef444433 62.1%,transparent 62.3%),radial-gradient(ellipse at 85% 0,#991b1b20,transparent 65%);mask-image:linear-gradient(#000,transparent)}
+.events-section .section-heading{margin-bottom:38px;gap:35px;align-items:flex-end}
+.events-section .section-heading h2{font-size:clamp(32px,3.7vw,52px);line-height:1.07;letter-spacing:-.05em}
+.events-section .eyebrow{margin-bottom:20px;color:#ef5864}
+.events-section .section-link{font:500 13px var(--font-interface);gap:35px;min-height:44px;padding:12px 0;border-color:#6b3b4355;white-space:nowrap;transition:border-color 180ms ease,color 180ms ease}
+.events-section .section-link>span{transition:transform 220ms var(--polish-ease)}
+.events-section .event-grid{gap:20px;align-items:stretch}
+.events-section .event-tile{min-height:235px;padding:24px 27px 21px;border:1px solid #ffffff24;border-radius:10px;background:#09090c;overflow:hidden;isolation:isolate;box-shadow:0 12px 30px #0003;transition:transform 240ms var(--polish-ease),border-color 200ms ease,box-shadow 220ms ease}
+.events-section .event-tile::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(90deg,#08080bef 0%,#08080bbd 34%,#08080b12 76%),linear-gradient(0deg,#08080bdb,transparent 45%);}
+.events-section .event-tile::after{content:"";position:absolute;inset:0;width:auto;height:auto;transform:none;border:0;box-shadow:none;z-index:-1;background:radial-gradient(280px circle at var(--pointer-x,80%) var(--pointer-y,30%),#9f15272b,transparent 75%);opacity:0;transition:opacity 240ms ease}
+.event-artwork{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;pointer-events:none;opacity:.85;transition:transform 420ms var(--polish-ease),opacity 240ms ease}
+.events-section .event-top{position:relative;align-items:center}
+.events-section .event-number{display:flex;align-items:center;gap:10px;font:11px var(--font-mono);color:#d2cbd0}
+.events-section .event-number::after{content:"";width:22px;height:1px;background:#ffffff24}
+.events-section .event-arrow{color:#c5c3ca;font:24px/1 var(--font-interface);transition:transform 220ms var(--polish-ease),color 180ms ease}
+.events-section .event-tile h3{font:500 clamp(28px,2.55vw,36px)/1.02 var(--font-interface);letter-spacing:-.055em;color:#e8e6ea;max-width:100%;margin:22px 0 18px;position:relative;transition:color 180ms ease;text-wrap:balance}
+.event-title-name{display:block;max-width:95%}
+.event-title-accent{color:#d83849;transition:color 180ms ease}
+.event-title-continuation{display:block;font-size:.77em;letter-spacing:-.045em;color:#c2bec8}
+.events-section .event-year{display:block;margin-top:5px;font:300 28px/1.05 var(--font-heading);letter-spacing:-.06em;color:#b0a7b1}
+.events-section .event-bottom{position:relative;align-items:center;color:#aaa3ae;font:10px/1.5 var(--font-mono);margin-top:auto;gap:15px}
+.event-count{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.events-section .event-signal{display:flex;align-items:flex-end;gap:5px;height:14px;opacity:.65;transition:opacity 200ms ease}
+.event-signal i{display:block;width:5px;height:3px;background:#d83849;transform-origin:bottom;transition:transform 240ms var(--polish-ease)}
+.event-signal i:nth-child(2){height:7px}.event-signal i:nth-child(3){height:12px}.event-signal i:nth-child(4){height:5px}.event-signal i:nth-child(5){height:8px}
+.events-section .event-tile:focus-visible{outline:2px solid #fb7185;outline-offset:4px;border-color:#fb7185}
+.events-section .event-tile:focus-visible h3{color:#fff}.events-section .event-tile:focus-visible::after{opacity:1}
+@media(hover:hover) and (pointer:fine){
+ .events-section .section-link:hover{color:#fff;border-color:#ef4444}
+ html[data-motion="on"] .events-section .section-link:hover>span{transform:translate(3px,-2px)}
+ .events-section .event-tile:hover{border-color:#db6670;box-shadow:0 12px 35px #0005,0 0 22px #b91c1c0e}
+ .events-section .event-tile:hover::after{opacity:1}
+ .events-section .event-tile:hover h3{color:#fff}.events-section .event-tile:hover .event-title-accent{color:#ff5867}
+ .events-section .event-tile:hover .event-arrow{color:#fff}.events-section .event-tile:hover .event-signal{opacity:1}
+ .events-section .event-tile:hover .event-artwork{opacity:1}
+ html[data-motion="on"] .events-section .event-tile:hover{transform:translateY(-3px)}
+ html[data-motion="on"] .events-section .event-tile:hover .event-arrow{transform:translate(2px,-2px)}
+ html[data-motion="on"] .events-section .event-tile:hover .event-artwork{transform:scale(1.025) translateX(-2px)}
+ html[data-motion="on"] .events-section .event-tile:hover .event-signal i:nth-child(even){transform:scaleY(1.35)}
+}
+@media(max-width:1100px){.events-section .event-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.events-section .event-tile{min-height:230px}.events-section .event-tile h3{font-size:34px}}
+@media(max-width:600px){
+ .events-section .section-heading{display:block;margin-bottom:27px}.events-section .section-heading h2{font-size:clamp(29px,7.8vw,42px);line-height:1.1}
+ .events-section .eyebrow{font-size:8px;letter-spacing:.12em;margin-bottom:15px}.events-section .section-link{display:inline-flex;margin-top:19px;max-width:none;gap:35px;font-size:12px;padding:10px 0}
+ .events-section .event-grid{grid-template-columns:1fr;gap:15px}.events-section .event-tile{min-height:228px;padding:23px 24px 21px}
+ .events-section .event-tile h3{font-size:clamp(29px,8.2vw,38px);margin:24px 0 17px}.events-section .event-year{font-size:27px}.events-section .event-bottom{font-size:10px}.events-section .event-signal{display:flex}.event-artwork{opacity:.85}
+}
+@media(prefers-reduced-motion:reduce){.events-section .event-tile,.events-section .event-artwork,.events-section .event-arrow,.events-section .event-signal i{transform:none!important;transition:none!important}}
+html[data-motion="off"] .events-section :is(.event-tile,.event-artwork,.event-arrow,.event-signal i){transform:none!important;transition:none!important}
+/* Suppress the older shared hover lift on actual touch pointers. */
+@media(hover:none){html[data-motion="on"] .events-section .event-tile:hover{transform:none;background-color:#09090c;border-color:#ffffff24}}

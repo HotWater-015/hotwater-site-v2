@@ -1,0 +1,10 @@
+{{ define "main" }}
+<div class="layout-page home-page"><div class="page-int section-stack section-stack--home">
+{{ partial "home/hero.html" . }}
+{{ partial "home/posts.html" . }}
+{{ partial "home/events.html" . }}
+<section class="category-section" data-reveal><div class="section-heading"><div><p class="eyebrow">03 / Choose your discipline</p><h2>Different paths.<br><span class="text-muted">Same curiosity.</span></h2></div><p>Follow the signals. Find your next rabbit hole.</p></div>{{ partial "category-links.html" . }}</section>
+{{ $featured := where (where site.RegularPages "Section" "writeups") "Params.featured" true }}{{ with $featured }}<section data-reveal><div class="section-heading"><div><p class="eyebrow">Selected from the archive</p><h2>Featured writeups</h2></div></div><div class="latest-grid">{{ range . }}{{ partial "components/writeup-card.html" (dict "Page" .) }}{{ end }}</div></section>{{ end }}
+<section class="about-archive" data-reveal><div class="about-symbol" aria-hidden="true"><div class="emblem-orbit"></div><div class="emblem-display">{{ partial "components/brand-symbol.html" . }}</div><span class="emblem-caption">QUESTION / UNDERSTAND</span></div><div><p class="eyebrow">The person behind the terminal</p><h2>Every flag has a story.<br>This is where I write mine.</h2><p>A personal archive of CTF solves, dead ends, and moments when things finally click. Built to share the process, not just the answer.</p><a class="btn-ghost" href="/about/" data-cursor="VIEW">About hotwater <span aria-hidden="true">{{ partial "components/arrow.html" "up-right" }}</span></a></div></section>
+</div></div>
+{{ end }}

@@ -1,0 +1,114 @@
+
+{{ define "main" }}
+  {{- $labels := dict
+    "web" "Web" "crypto" "Crypto" "pwn" "Pwn" "rev" "Reverse"
+    "forensics" "Forensics" "mobile" "Mobile" "iot" "IoT" "ml" "ML"
+    "ai" "AI" "osint" "OSINT" "misc" "Misc" "cloud" "Cloud"
+    "boot2root" "Boot2Root" "networking" "Networking" "steg" "Stego" "devsec" "DevSec"
+  -}}
+  {{- $writeups := where site.RegularPages "Section" "writeups" -}}
+  {{- $events := site.GetPage "/writeups" -}}
+  {{- $eventCount := len (union (slice) $events.Pages) -}}
+  {{- $cats := 0 -}}
+  {{- range $id, $label := $labels -}}
+    {{- if gt (len (where $writeups "Params.category" $id)) 0 -}}{{- $cats = add $cats 1 -}}{{- end -}}
+  {{- end -}}
+  {{- $byDate := sort $writeups "Date" "asc" -}}
+  {{- $top := "" -}}{{- $topName := "" -}}{{- $topN := 0 -}}
+  {{- range $events.Pages -}}
+    {{- $n := len .RegularPages -}}
+    {{- if gt $n $topN -}}{{- $topN = $n -}}{{- $top = .Title -}}{{- end -}}
+  {{- end -}}
+  {{- $placements := default slice .Params.placements -}}
+  {{- $certs := default slice .Params.certifications -}}
+
+  <section class="layout-page">
+    <div class="page-int section-stack">
+      <header class="space-y-2">
+        <h1 class="heading-page text-2xl sm:text-3xl">Trophies &amp; milestones</h1>
+        {{ with .Description }}
+          <p class="max-w-xl text-sm text-muted">{{ . }}</p>
+        {{ end }}
+      </header>
+
+      <div class="ach-stats">
+        <div class="card card-pad ach-card">
+          <span class="ach-num">{{ len $writeups }}</span>
+          <span class="ach-label">writeups published</span>
+          <p>Full breakdowns — recon to final exploit.</p>
+        </div>
+        <div class="card card-pad ach-card">
+          <span class="ach-num">{{ $eventCount }}</span>
+          <span class="ach-label">CTF events</span>
+          <p>Different competitions represented in the archive.</p>
+        </div>
+        <div class="card card-pad ach-card">
+          <span class="ach-num">{{ $cats }}</span>
+          <span class="ach-label">disciplines</span>
+          <p>Web, pwn, crypto, rev, forensics, mobile, IoT and more.</p>
+        </div>
+        <div class="card card-pad ach-card">
+          {{- $latest := index (sort $writeups "Date" "desc") 0 -}}
+          <span class="ach-num">{{ $latest.Date.Format "Jan 2006" }}</span>
+          <span class="ach-label">latest activity</span>
+          <p>Most recent solve documented in the archive.</p>
+        </div>
+      </div>
+
+      <div class="ach-split">
+        <div class="space-y-4">
+          <h2 class="text-lg font-medium tracking-tight">Placements &amp; results</h2>
+          {{ if $placements }}
+            <ul class="placement-list">
+              {{ range $placements }}
+                <li class="placement">
+                  <span class="placement-year">{{ .year }}</span>
+                  <div>
+                    <strong>{{ .title }}</strong>
+                    {{ with .detail }}<p class="text-xs text-muted">{{ . }}</p>{{ end }}
+                  </div>
+                  <span class="placement-tier tier-{{ .tier | default "default" }}">{{ .tier | default "result" }}</span>
+                </li>
+              {{ end }}
+            </ul>
+          {{ else }}
+            <div class="empty-panel">
+              <p class="font-medium">The scoreboard is being assembled.</p>
+              <p>Placements, team results and badges will land here as the season wraps. In the meantime, the archive is the proof of work.</p>
+              <a class="link-underline text-xs text-accent" href="{{ "/writeups/" | relURL }}">See what's been solved {{ partial "components/arrow.html" "right" }}</a>
+            </div>
+          {{ end }}
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="text-lg font-medium tracking-tight">Archive milestones</h2>
+          <ul class="milestone-list">
+            {{- $first := index $byDate 0 -}}
+            {{- $latest := index (sort $writeups "Date" "desc") 0 -}}
+            <li><span>First writeup</span><strong>{{ $first.Date.Format "Jan 2, 2006" }}</strong></li>
+            <li><span>Latest writeup</span><strong>{{ $latest.Date.Format "Jan 2, 2006" }}</strong></li>
+            <li><span>Most active event</span><strong>{{ $top }} ({{ $topN }})</strong></li>
+            <li><span>Events played</span><strong>{{ $eventCount }}</strong></li>
+            <li><span>Disciplines covered</span><strong>{{ $cats }}</strong></li>
+            <li><span>Teammate writeups</span><strong>{{ len (where $writeups "Params.teammate" true) }}</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      {{ if $certs }}
+        <div class="space-y-4">
+          <h2 class="text-lg font-medium tracking-tight">Certifications</h2>
+          <div class="ach-stats">
+            {{ range $certs }}
+              <div class="card card-pad">
+                <strong class="text-sm">{{ .name }}</strong>
+                <span class="text-xs text-muted">{{ .issuer }}{{ with .year }} · {{ . }}{{ end }}</span>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+      <link rel="stylesheet" href="{{ "css/custom.css" | relURL }}">
+    </div>
+  </section>
+{{ end }}

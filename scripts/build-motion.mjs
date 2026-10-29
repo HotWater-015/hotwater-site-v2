@@ -1,0 +1,11 @@
+import { build } from 'esbuild';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { gzipSync } from 'node:zlib';
+import { motionOptions } from './motion-options.mjs';
+const result = await build(motionOptions);
+await mkdir('reports', { recursive: true });
+const { readFile } = await import('node:fs/promises');
+const code = await readFile('static/js/motion-system.js');
+const files = await Promise.all(Object.keys(result.metafile.outputs).map(async path => { const data = await readFile(path); return { path, bytes: data.length, gzipBytes: gzipSync(data).length }; }));
+await writeFile('reports/motion-bundle.json', JSON.stringify({ bytes: code.length, gzipBytes: gzipSync(code).length, files, outputs: result.metafile.outputs }, null, 2) + '\n');
+console.log(`Motion island: ${(code.length / 1024).toFixed(1)} KiB / ${(gzipSync(code).length / 1024).toFixed(1)} KiB gzip`);

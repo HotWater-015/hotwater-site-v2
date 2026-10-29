@@ -1,0 +1,148 @@
+baseURL = 'https://hotwater-online.xyz/'
+locale = 'en-us'
+title = 'hotwater'
+enableRobotsTXT = true
+theme = 'minimal-black'
+
+[outputs]
+  home = ["HTML", "RSS", "JSON", "WebAppManifest"]
+
+[outputFormats.WebAppManifest]
+  mediaType = "application/manifest+json"
+  rel = "manifest"
+  baseName = "manifest"
+  isPlainText = true
+  notAlternative = true
+
+[params]
+  brand = "hotwater"
+  description = "CTF writeups, exploit notes and security research — pwn, crypto, web, forensics, mobile, IoT and more."
+  themeGit = "https://gitlab.com/jimchr12/hugo-minimal-black"
+
+  # Favicon (project static/ overrides)
+  favicon = "icons/favicon.svg"
+  appleTouchIcon = "icons/apple-touch-icon.png"
+
+  # Archive intro (shown on the writeup listing pages)
+  writeupsIntro = "Every challenge I've solved and documented. Search by name, filter by discipline or event — no login, no gatekeeping."
+
+  [params.manifest]
+    themeColor = "#DC2626"
+    backgroundColor = "#09090B"
+    categories = ["blog", "security", "developer"]
+
+  [params.theme]
+    defaultTheme = "dark"
+
+  # Home page sections
+  [params.home]
+    sections = ["hero", "posts", "events"]
+    showLatestPosts = true
+    latestPostsLimit = 6
+    blogTitle = "Latest writeups"
+    blogSubtitle = "Fresh solves from the archive"
+
+  # Hero
+  [params.hero]
+    badge = "CTF writeups · offensive security"
+    title = "Break things. Write it down."
+    role = "CTF player and security researcher"
+    summary = "I take things apart, figure out why they broke, and document the whole mess. This site is my lab notebook: the challenges I solved, the dead ends I hit, and the tricks I want to remember next time."
+    location = "Online"
+    focus = "Currently: binary exploitation, crypto, forensics"
+    available = false
+    nowLabel = "Quick facts"
+    nowIntro = "Right now I'm mainly:"
+    now = [
+      "Grinding pwn challenges and CTF boxes",
+      "Writing up everything I solve",
+      "Collecting flags across 12 CTF events"
+    ]
+    [params.hero.primary]
+      label = "Browse the archive"
+      href = "/writeups/"
+    [params.hero.secondary]
+      label = "Who is hotwater?"
+      href = "/about/"
+
+  # Icon libraries
+  [params.icons]
+    useFontAwesome = true
+    useDevicon = false
+
+# Navigation
+[menu]
+  [[menu.main]]
+    name = "Writeups"
+    pageRef = "writeups"
+    url = "/writeups/"
+    weight = 1
+    identifier = "writeups"
+    [menu.main.params]
+      icon = "fa-regular fa-flag"
+
+  [[menu.main]]
+    name = "Achievements"
+    pageRef = "achievements"
+    url = "/achievements/"
+    weight = 2
+    identifier = "achievements"
+    [menu.main.params]
+      icon = "fa-solid fa-trophy"
+
+  [[menu.main]]
+    name = "About"
+    pageRef = "about"
+    url = "/about/"
+    weight = 3
+    identifier = "about"
+    [menu.main.params]
+      icon = "fa-regular fa-user"
+
+# Markup configuration
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+
+  [markup.goldmark.renderer]
+    unsafe = false
+
+  [markup.goldmark.parser]
+    [markup.goldmark.parser.attribute]
+      block = true
+
+  [markup.goldmark.extensions]
+    typographer = false
+    linkify = true
+    table = true
+    strikethrough = true
+    taskList = true
+    definitionList = true
+    footnote = true
+
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    lineNumbersInTable = false
+    noClasses = false
+    style = "base16-snazzy"
+    tabWidth = 2
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[privacy]
+  [privacy.youtube]
+    privacyEnhanced = true
+
+[security]
+  enableInlineShortcodes = false
+
+[markup.goldmark.extensions.passthrough]
+  enable = true
+  [markup.goldmark.extensions.passthrough.delimiters]
+    block = [['\[', '\]'], ['$$', '$$']]
+    inline = [['\(', '\)'], ['$', '$']]

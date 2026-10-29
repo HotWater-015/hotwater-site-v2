@@ -1,0 +1,14 @@
+{{ define "main" }}{{ $m := partialCached "archive-meta.html" . .File.Path }}
+<div class="reading-progress" aria-hidden="true"><span></span></div>
+<section class="layout-page"><div class="article-layout">
+<article class="article-main">
+<header class="article-header" data-cyber-region>{{ partial "cyber-background.html" "article" }}<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/writeups/?event={{ $m.event }}">{{ $m.eventLabel }}</a><span>/</span><a href="/writeups/?event={{ $m.event }}&amp;cat={{ $m.category }}">{{ $m.categoryLabel }}</a><span>/</span><span>{{ .Title }}</span></nav>
+<p class="eyebrow">{{ $m.categoryLabel }} / {{ $m.eventLabel }}</p><h1>{{ .Title }}</h1><p class="card-meta">{{ .Date.Format "02 Jan 2006" }} · {{ .ReadingTime }} min read{{ with .Params.difficulty }} · {{ . }}{{ end }}{{ if .Params.teammate }} · Teammate writeup{{ end }}</p>{{ with .Description }}<p class="article-description">{{ . }}</p>{{ end }}</header>
+<div class="markdown-body">{{ .Content }}</div>
+{{ partial "solution-scripts.html" . }}
+<nav class="post-nav" aria-label="Previous and next writeups">{{ with .PrevInSection }}<a class="card card-pad post-nav-item" href="{{ .RelPermalink }}"><span>{{ partial "components/arrow.html" "left" }} Previous writeup</span><strong>{{ .Title }}</strong></a>{{ else }}<span></span>{{ end }}{{ with .NextInSection }}<a class="card card-pad post-nav-item pn-right" href="{{ .RelPermalink }}"><span>Next writeup {{ partial "components/arrow.html" "right" }}</span><strong>{{ .Title }}</strong></a>{{ end }}</nav>
+{{ $current := . }}{{ $related := slice }}{{ range where site.RegularPages "Section" "writeups" }}{{ $other := partialCached "archive-meta.html" . .File.Path }}{{ if and (ne .RelPermalink $current.RelPermalink) (eq $m.category $other.category) (eq $m.event $other.event) }}{{ $related = $related | append . }}{{ end }}{{ end }}
+{{ with first 3 $related }}<section class="related"><h2>Related writeups</h2>{{ range . }}<a href="{{ .RelPermalink }}">{{ .Title }} {{ partial "components/arrow.html" "right" }}</a>{{ end }}</section>{{ end }}
+</article>
+<aside class="article-toc"><details class="toc-wrapper" open><summary>On this page</summary><nav class="toc-nav" aria-label="Table of contents">{{ .TableOfContents }}{{ if index hugo.Data.scripts (.File.Path) }}<a href="#solution-scripts">Solution Scripts</a>{{ end }}</nav></details></aside>
+</div></section>{{ end }}

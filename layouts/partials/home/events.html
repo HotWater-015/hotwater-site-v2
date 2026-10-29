@@ -1,0 +1,22 @@
+<section class="events-section" data-reveal>
+  <div class="section-heading">
+    <div><p class="eyebrow">02 / Across the competitions</p><h2>Different arenas.<br><span class="text-muted">The same obsession.</span></h2></div>
+    {{ if .IsHome }}<a class="section-link" href="/ctfs/" data-cursor="VIEW">All CTF events <span aria-hidden="true">{{ partial "components/arrow.html" "up-right" }}</span></a>{{ end }}
+  </div>
+  <div class="event-grid">
+    {{ $events := (site.GetPage "/writeups").Sections.ByWeight }}
+    {{ if .IsHome }}{{ $events = first 6 $events }}{{ end }}
+    {{ range $i,$event := $events }}
+      {{ $key := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+      {{ $art := index (index hugo.Data "event-visuals") $key | default "fold" }}
+      {{ $year := findRE "20[0-9]{2}$" .Title }}
+      {{ $name := replaceRE "\\s+20[0-9]{2}$" "" .Title }}
+      <a href="{{ .RelPermalink }}" class="event-tile" data-cursor="VIEW" aria-label="{{ .Title }} — {{ len .RegularPagesRecursive }} writeups">
+        <img class="event-artwork" src="/images/events/{{ $art }}.svg" alt="" width="600" height="360" loading="lazy" decoding="async">
+        <div class="event-top"><span class="event-number">{{ printf "%02d" (add $i 1) }}</span><span class="event-arrow" aria-hidden="true">{{ partial "components/arrow.html" "up-right" }}</span></div>
+        <h3><span class="event-title-name">{{ if eq $key "cryovault" }}{{ $words := split $name " " }}{{ index $words 0 }} <span class="event-title-continuation">{{ delimit (after 1 $words) " " }}</span>{{ else }}{{ range $n,$part := split $name "CTF" }}{{ if $n }}<span class="event-title-accent">CTF</span>{{ end }}{{ $part }}{{ end }}{{ end }}</span>{{ with $year }} <span class="event-year">{{ index . 0 }}</span>{{ end }}</h3>
+        <div class="event-bottom"><span class="event-count"><svg width="13" height="15" viewBox="0 0 13 15" fill="none" aria-hidden="true"><path d="M3 1.5h4l3 3V13H3ZM7 1.5v3h3M5 7h3M5 9h3" stroke="currentColor" stroke-linejoin="round"/></svg>{{ len .RegularPagesRecursive }} writeups</span><span class="event-signal" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div>
+      </a>
+    {{ end }}
+  </div>
+</section>

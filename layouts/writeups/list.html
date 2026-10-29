@@ -1,0 +1,19 @@
+{{ define "main" }}
+{{ $pages := where site.RegularPages "Section" "writeups" }}
+{{ $root := eq .RelPermalink "/writeups/" }}{{ if not $root }}{{ $pages = .RegularPagesRecursive }}{{ end }}
+<section class="layout-page"><div class="page-int section-stack">
+<header class="archive-heading" data-cyber-region>{{ partial "cyber-background.html" "archive" }}<p class="eyebrow">hotwater / research archive</p><h1>{{ if $root }}CTF Writeup Archive{{ else }}{{ .Title }}{{ end }}</h1><p>{{ if $root }}Exploitation, analysis and challenge solutions. Find the technique behind the flag.{{ else }}{{ .Description }}{{ end }}</p></header>
+<div class="archive-bar">
+<div class="archive-search"><label for="challenge-search" class="sr-only">Search challenges, events, categories and tags</label><input id="challenge-search" type="search" placeholder="Search challenges, techniques, tags…" data-archive-q><button type="button" data-clear-search aria-label="Clear search">Clear</button></div>
+<div class="archive-controls">
+<div class="archive-select"><span>CTF event</span><select aria-label="CTF event" data-archive-event><option value="all">All CTFs</option></select></div>
+<div class="archive-select"><span>Discipline</span><select aria-label="Category" data-archive-category><option value="all">All categories</option></select></div>
+<div class="archive-select"><span>Sort by</span><select aria-label="Sort" data-archive-sort><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="alpha">Alphabetical</option>{{ if where $pages "Params.difficulty" "!=" nil }}<option value="difficulty">Difficulty</option>{{ end }}</select></div>
+</div></div>
+<div class="filter-selection" data-filter-selection aria-label="Selected filters"></div>
+<div class="discipline-strip" data-discipline-strip aria-label="Quick category filters"></div>
+<div class="archive-status"><p data-archive-count role="status" aria-live="polite">{{ len $pages }} writeups</p><button class="chip" type="button" data-archive-reset>Clear filters</button></div>
+<div class="archive-grid" data-archive-grid>{{ range $pages.ByDate.Reverse }}{{ partial "components/writeup-card.html" (dict "Page" .) }}{{ end }}</div>
+<div class="empty-panel" data-archive-empty hidden><h2>No matching writeups</h2><p>Try another event, category or search term.</p><button class="btn-primary" type="button" data-archive-reset>Clear filters</button></div>
+<noscript><p>All writeups are listed above. Enable JavaScript for instant filtering and sorting.</p></noscript>
+</div></section><script src="/js/archive.js" defer></script><script src="/js/discovery.js" defer></script>{{ end }}

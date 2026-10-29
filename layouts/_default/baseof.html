@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}" data-theme="dark"
+  data-cb-collapse-enabled="{{ .Site.Params.features.codeblock.collapse.enabled }}"
+  data-cb-collapse-default="{{ .Site.Params.features.codeblock.collapse.defaultState }}"
+  data-cb-collapse-lines="{{ .Site.Params.features.codeblock.collapse.autoCollapseLines }}"
+  data-cb-collapse-auto-height="{{ .Site.Params.features.codeblock.collapse.autoCollapseHeight }}"
+  data-cb-collapse-collapsed-height="{{ .Site.Params.features.codeblock.collapse.collapsedHeight }}">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body class="min-h-screen bg-bg text-text antialiased">
+    <div class="flex min-h-screen flex-col">
+      {{ partial "header.html" . }}
+
+      <main id="main-content" class="flex-1">
+        {{ block "main" . }}{{ end }}
+      </main>
+
+      {{ if ne .Layout "about" }}{{ partial "footer.html" . }}{{ end }}
+    </div>
+    <div id="global-motion" aria-hidden="true"></div>
+    <script src="/js/main.js" defer></script>
+  </body>
+</html>

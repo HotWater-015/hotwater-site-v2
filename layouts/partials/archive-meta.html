@@ -1,0 +1,17 @@
+{{- $p := . -}}
+{{- $event := $p.Params.ctf | default $p.Params.event | default $p.Parent.Title -}}
+{{- $key := $event | lower | strings.TrimSpace | urlize -}}
+{{- $label := $event -}}
+{{- range (site.GetPage "/writeups").Sections -}}
+  {{- $aliases := slice (.Title | lower | urlize) (path.Base .RelPermalink) -}}
+  {{- range .RegularPagesRecursive -}}{{- with .Params.tags -}}{{- if gt (len .) 0 -}}{{- $aliases = $aliases | append (index . 0 | lower | strings.TrimSpace | urlize) -}}{{- end -}}{{- end -}}{{- end -}}
+  {{- if in $aliases $key -}}
+    {{- $key = path.Base .RelPermalink -}}{{- $label = .Title -}}
+  {{- end -}}
+{{- end -}}
+{{- $rawCategory := $p.Params.category -}}
+{{- if not $rawCategory -}}{{- with $p.Params.categories -}}{{- $rawCategory = index . 0 -}}{{- end -}}{{- end -}}
+{{- $raw := $rawCategory | default "Uncategorized" | lower | strings.TrimSpace -}}
+{{- $aliases := dict "crypto" "Cryptography" "cryptography" "Cryptography" "rev" "Reverse Engineering" "reverse" "Reverse Engineering" "reverse engineering" "Reverse Engineering" "pwn" "Binary Exploitation" "binary exploitation" "Binary Exploitation" "binary exploitation / pwn" "Binary Exploitation" "forensic" "Digital Forensics" "forensics" "Digital Forensics" "digital forensics" "Digital Forensics" "web" "Web Exploitation" "web exploitation" "Web Exploitation" "misc" "Miscellaneous" "miscellaneous" "Miscellaneous" "iot" "IoT" "osint" "OSINT" "ai" "AI" "ml" "ML" "devsec" "DevSec" "steg" "Steganography" -}}
+{{- $category := index $aliases $raw | default ($raw | humanize | title) -}}
+{{- return (dict "event" $key "eventLabel" $label "category" ($category | urlize) "categoryLabel" $category) -}}

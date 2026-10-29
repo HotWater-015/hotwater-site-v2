@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" class="fractured-hw" aria-hidden="true" focusable="false">
+  <g class="fracture-left">
+    <path d="M10 8 31 21 31 45 10 72Z" fill="#ef233c"/>
+    <path d="M10 8 20 34 10 72Z" fill="#ff4554"/>
+    <path d="M20 34 31 45 10 72Z" fill="#9f1026"/>
+    <path d="m10 79 21-26 11 12-32 23Z" fill="#dc2626"/>
+  </g>
+  <g class="fracture-right">
+    <path d="m86 8-21 13v24l21 27Z" fill="#dc182c"/>
+    <path d="M86 8 76 34 86 72Z" fill="#f72e42"/>
+    <path d="M76 34 65 45 86 72Z" fill="#850d20"/>
+    <path d="M86 79 65 53 54 65l32 23Z" fill="#b71329"/>
+  </g>
+  <g class="fracture-core">
+    <path d="m33 25 15 16 15-16v23L48 64 33 48Z" fill="#f42b40"/>
+    <path d="m33 25 15 16v23L33 48Z" fill="#b31027"/>
+    <path d="m33 53 15 16 15-16-15 29Z" fill="#ed273b"/>
+    <path d="m48 69 15-16-15 29Z" fill="#7f1023"/>
+  </g>
+  <path d="m11 9 19 12M66 21 85 9M34 26l14 15 14-15" stroke="#ff7d83" stroke-opacity=".55"/>
+</svg>

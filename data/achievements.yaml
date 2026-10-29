@@ -1,0 +1,73 @@
+# Edit the event records directly; this is a Hugo data file.
+# The totals below are supplied by the site owner; they are not derived from the photo count.
+placements:
+  first: 6
+  second: 0
+  third: 1
+
+records:
+  - id: xploitx-ctf-2026
+    name: "XploitX CTF"
+    start: "2026-03-13"
+    end: "2026-03-14"
+    position: 3
+    image: "/images/achievements/xploitx-ctf-2026.png"
+    image_status: "user-confirmed"
+    image_alt: "CTF participants receiving a third-place trophy at XploitX"
+    # Photo association explicitly confirmed by the owner in the follow-up.
+
+  - id: inctf-hardware-2026
+    name: "InCTF Hardware"
+    start: "2026-08-08"
+    end: "2026-08-08"
+    position: 1
+    image: "/images/achievements/in-ctf-hardware-2026.jpg"
+    image_status: "user-provided"
+    image_alt: "CTF participants displaying hardware-themed awards at an event backdrop"
+
+  - id: drestein-cyber-heist-2026
+    name: "Drestein Cyber Heist"
+    start: "2026-09-11"
+    end: "2026-09-11"
+    position: 1
+    image: "/images/achievements/drestein-cyber-heist-2026.jpg"
+    image_status: "user-provided"
+    image_alt: "Group holding a First Prize Winner board at Drestein"
+
+  - id: nullcore-ctf-2-2026
+    name: "Nullcore CTF 2.0"
+    start: "2026-09-26"
+    end: "2026-09-26"
+    position: 1
+    image: ""
+    image_status: "not-provided"
+    image_alt: ""
+
+  - id: lunar-ctf-2026
+    name: "Lunar CTF"
+    start: "2026-10-03"
+    end: "2026-10-04"
+    position: 1
+    image: "/images/achievements/lunar-ctf-2026.jpg"
+    image_status: "user-provided"
+    image_alt: "CTF team displaying the first-place prize board at Lunar CTF"
+    prize_inr: 50000
+
+  - id: cyber-carnival-ctf-2026
+    name: "Cyber Carnival CTF"
+    start: "2026-10-07"
+    end: "2026-10-07"
+    position: 1
+    image: ""
+    image_status: "not-provided"
+    image_alt: ""
+
+  - id: cryovault-ctf-2026
+    name: "Cryovault CTF"
+    start: "2026-10-24"
+    end: "2026-10-25"
+    position: 1
+    image: "/images/achievements/cryovault-ctf-2026.jpg"
+    image_status: "user-provided"
+    image_alt: "CTF team displaying a first-place prize certificate at the Cryovault event"
+    prize_inr: 30000

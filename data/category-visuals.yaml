@@ -1,0 +1,18 @@
+# Canonical archive categories → original SVG assets. Unknown categories use puzzle geometry.
+ai: ai
+binary-exploitation: binary-exploitation
+boot2root: boot2root
+cloud: cloud
+cryptography: cryptography
+devsec: devsec
+digital-forensics: digital-forensics
+hardware: hardware
+iot: iot
+miscellaneous: miscellaneous
+ml: ml
+mobile: mobile
+networking: networking
+osint: osint
+reverse-engineering: reverse-engineering
+steganography: steganography
+web-exploitation: web-exploitation

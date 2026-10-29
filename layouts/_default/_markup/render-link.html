@@ -1,0 +1,13 @@
+{{- $destination := .Destination -}}
+{{- $scheme := (urls.Parse $destination).Scheme | lower -}}
+{{- $available := true -}}
+{{- $localFile := and (eq $scheme "") (not (strings.HasPrefix $destination "/")) (not (strings.HasPrefix $destination "#")) (ne (path.Ext $destination) "") -}}
+{{- if $localFile -}}
+  {{- $available = or (fileExists (printf "static%s%s" .Page.RelPermalink $destination)) (ne (.Page.Resources.Get $destination) nil) -}}
+  {{- with index hugo.Data.scripts .Page.File.Path -}}{{- range .scripts -}}{{- if eq .filename (path.Base $destination) -}}{{- $destination = (resources.Get .asset).RelPermalink -}}{{- $available = true -}}{{- end -}}{{- end -}}{{- end -}}
+{{- end -}}
+{{- if and $available (or (eq $scheme "") (in (slice "https" "http" "mailto") $scheme)) -}}
+<a href="{{ $destination }}" {{ if in (slice "https" "http") $scheme }}target="_blank" rel="noopener noreferrer"{{ end }} class="md-link">{{ .Text | safeHTML }}</a>
+{{- else if $localFile -}}
+<span class="local-artifact" title="Local challenge artifact; not published">{{ .Text | safeHTML }}<span class="artifact-note"> (local artifact)</span></span>
+{{- else -}}<span>{{ .Text | safeHTML }}</span>{{- end -}}

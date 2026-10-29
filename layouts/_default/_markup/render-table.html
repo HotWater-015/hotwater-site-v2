@@ -1,0 +1,36 @@
+<div class="table-wrap" role="region" aria-label="Scrollable data table" tabindex="0">
+  <table>
+    <thead>
+      {{- range .THead }}
+        <tr>
+          {{- range . }}
+            <th
+              {{- with .Alignment }}
+                {{- printf " style=%q" (printf "text-align: %s" .) | safeHTMLAttr }}
+              {{- end -}}
+            >
+              {{- .Text -}}
+            </th>
+          {{- end }}
+        </tr>
+      {{- end }}
+    </thead>
+    <tbody>
+      {{- range .TBody }}
+        <tr>
+          {{- range . }}
+            <td
+              {{- with .Alignment }}
+                {{- printf " style=%q" (printf "text-align: %s" .) | safeHTMLAttr }}
+              {{- end -}}
+            >
+              {{- .Text -}}
+            </td>
+          {{- end }}
+        </tr>
+      {{- end }}
+    </tbody>
+  </table>
+</div>
+
+<span class="table-scroll-hint" aria-hidden="true">Scroll horizontally to explore the table {{ partial "components/arrow.html" "right" }}</span>

@@ -1,0 +1,30 @@
+/* The server-rendered page is the fallback; decoration never captures input. */
+[data-cyber-region]{position:relative;isolation:isolate}
+.cyber-background{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;border-radius:inherit;contain:layout paint;user-select:none}
+.cyber-background::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(127,29,29,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(127,29,29,.13) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at 75% 42%,#000 10%,transparent 75%)}
+.cyber-background::after,.cyber-ambient{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 88% 35%,rgba(127,29,29,.12),transparent 63%);pointer-events:none}
+.cyber-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.archive-hero .cyber-background{inset:-2rem -1rem -1rem}.archive-hero h1 .hero-heading-line{display:block}.archive-hero h1 .hero-heading-line:first-child{color:var(--color-text)}
+.cyber-background[data-cyber-variant="archive"]{inset:-1rem -1rem -1rem;opacity:.6}
+.cyber-background[data-cyber-variant="article"]{inset:-1.5rem -1rem 0;opacity:.3}
+.cyber-background[data-cyber-variant="article"]::before{opacity:.3}
+.cyber-terminal{position:absolute;right:1.5rem;bottom:1.5rem;display:flex;flex-direction:column;gap:.35rem;width:200px;font:10px/1.7 var(--font-mono);letter-spacing:.025em;color:#71717a;text-align:left}
+.cyber-terminal-prompt{color:#a65a5a}.cyber-accent-line{display:block;width:100%;height:1px;background:linear-gradient(90deg,#7F1D1D,transparent);transform-origin:left;margin-top:.5rem}
+.motion-toggle{display:inline-flex;align-items:center;gap:.45rem;min-height:32px;border:1px solid #27272A;border-radius:5px;padding:.3rem .5rem;font:10px var(--font-mono);color:#A1A1AA;white-space:nowrap}
+.motion-toggle:hover{border-color:#7F1D1D;color:#F5F5F5}.motion-toggle:disabled{cursor:default}.motion-toggle-dot{width:5px;height:5px;border-radius:50%;background:#71717a}.motion-toggle[aria-pressed="true"] .motion-toggle-dot{background:#DC2626}
+#motion-control-slot{display:inline-flex;align-items:center}
+html[data-motion="on"] :is(.writeup-card,.event-tile){transition:transform .18s ease,border-color .18s ease,background-color .18s ease}
+html[data-motion="on"] :is(.writeup-card,.event-tile):hover{transform:translateY(-3px);border-color:#7F1D1D;background-color:#1b191c}
+.archive-select{position:relative;transition:border-color .14s ease,background-color .14s ease}
+.archive-select::after{content:"";position:absolute;bottom:-1px;left:10px;right:10px;height:2px;background:#DC2626;transform:scaleX(0);transform-origin:left;transition:transform .16s ease}
+.archive-select[data-filter-active="true"]{border-color:#7F1D1D}.archive-select[data-filter-active="true"]::after{transform:scaleX(1)}
+.archive-select[data-filter-active="true"]>span{color:#fca5a5}.archive-search[data-search-active="true"]{border-color:#7F1D1D}
+.toc-nav a{border-radius:3px;transition:color .16s ease,background-color .16s ease}.toc-nav a.active{background-color:rgba(127,29,29,.1)}
+.markdown-body .md-heading-anchor{transition:color .15s ease}.mb-action-btn{transition:background-color .15s ease,border-color .15s ease,color .15s ease}.mb-action-btn[data-copy-status="success"]{background:#261214;border-color:#7F1D1D;color:#fca5a5}
+.reading-progress span{transform-origin:left;width:100%;transform:scaleX(0);transition:transform .08s linear}
+html:is([data-motion="off"],[data-motion="reduced"]) .cyber-canvas{display:none}
+html:is([data-motion="off"],[data-motion="reduced"]) :is(.writeup-card,.event-tile,.post-nav-item):hover{transform:none}
+html:is([data-motion="off"],[data-motion="reduced"]) :is(.archive-select::after,.toc-nav a,.md-heading-anchor,.mb-action-btn,.reading-progress span){transition:none}
+@media(max-width:1000px){.cyber-terminal{display:none}.site-nav nav{gap:1rem}}
+@media(max-width:760px){.cyber-background::before{background-size:38px 38px}.cyber-background::after,.cyber-ambient{opacity:.6}.archive-hero .cyber-background{inset:-1rem -.5rem}.motion-toggle{min-height:40px}}
+@media(prefers-reduced-motion:reduce){.cyber-canvas{display:none}.cyber-accent-line{transform:none!important}.reading-progress span{transition:none!important}:is(.writeup-card,.event-tile,.post-nav-item):hover{transform:none!important}html{scroll-behavior:auto}}

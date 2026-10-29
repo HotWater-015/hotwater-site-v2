@@ -1,0 +1,30 @@
+{
+  "name": "hotwater-site-v2",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build:motion": "node scripts/build-motion.mjs",
+    "dev": "node scripts/local.mjs dev",
+    "build": "node scripts/local.mjs build",
+    "check": "npm run lint && npm run build && python3 -m unittest discover -s tests -p \"test_*.py\" && python3 scripts/check-isolation.py",
+    "check:browser": "node tests/browser-qa.mjs && node tests/motion-browser-qa.mjs",
+    "lint": "node scripts/lint.mjs",
+    "check:visual": "node tests/cinematic-qa.mjs",
+    "check:interactions": "node tests/interactions-qa.mjs",
+    "check:http": "python3 scripts/check-local.py",
+    "check:discovery": "node tests/discovery-qa.mjs",
+    "check:about": "node tests/about-v5-qa.mjs"
+  },
+  "dependencies": {
+    "katex": "0.16.22",
+    "motion": "^14.7.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "playwright": "^1.64.1"
+  }
+}

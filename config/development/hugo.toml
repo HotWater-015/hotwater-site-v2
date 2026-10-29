@@ -1,0 +1,9 @@
+baseURL = "http://localhost:1314/"
+enableRobotsTXT = false
+[params]
+  localDevelopment = true
+
+[[server.headers]]
+  for = "/**"
+  [server.headers.values]
+    Cache-Control = "no-store"

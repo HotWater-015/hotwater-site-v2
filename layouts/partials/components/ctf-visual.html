@@ -1,0 +1,2 @@
+{{- $id := index (index site.Data "category-visuals") . | default "miscellaneous" -}}
+{{- readFile (printf "static/images/categories/%s.svg" $id) | safeHTML -}}
